@@ -1,4 +1,4 @@
-package org.example;
+package SeleniumFramework;
 
 import com.google.j2objc.annotations.Weak;
 import org.openqa.selenium.*;
