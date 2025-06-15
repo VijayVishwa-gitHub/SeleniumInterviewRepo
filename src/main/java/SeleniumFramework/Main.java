@@ -1,16 +1,13 @@
 package SeleniumFramework;
 
-import com.google.j2objc.annotations.Weak;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.decorators.WebDriverDecorator;
 import org.openqa.selenium.support.ui.*;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -34,6 +31,7 @@ public class Main {
                 driver.findElement(By.xpath("(//span[@class='lbl_input appendBottom10'])[3]")).click();
                 Thread.sleep(6000);
                 String mo = month + " " + year;
+                System.out.println(mo);
 
                 while (!mo.equalsIgnoreCase(
                         driver.findElement(By.xpath("(//div[@class='DayPicker-Caption']/div)[1]")).getText())) {
@@ -185,7 +183,7 @@ public class Main {
 
         }
 
-        public static WebDriver efficientCalendar(WebDriver driver, int year, String month, String date) {
+        public static void efficientCalendar(WebDriver driver, int year, String month, String date) {
             driver.navigate().to("https://testautomationpractice.blogspot.com/");
             driver.findElement(By.cssSelector("#datepicker")).click();
 
@@ -216,7 +214,6 @@ public class Main {
             driver.findElement(By.xpath("//a[@data-date='" + date + "']")).click();
             System.out.println("Selected Date: " + date + " " + month + " " + year);
 
-            return driver;
         }
 
         private static Map<String, Integer> getMonthMap() {
@@ -304,6 +301,7 @@ public class Main {
                 break;
             }
         }
+        Thread.sleep(2000);
         System.out.println(driver.getTitle());
         driver.findElement(By.xpath("//input[@type='email']")).sendKeys("vijayvishwa242@gmail.com");
         driver.close();
@@ -325,8 +323,10 @@ public class Main {
         // dragAndDropping(driver);
         // efficientCalendar(driver, 2026, "June", "12");
         try{
-        firstProject(driver);} catch (Exception e) {
-            e.printStackTrace();
+
+            handlingDates(driver, "15", "June", "2025");
+        //firstProject(driver);
+        } catch (ElementNotInteractableException e) {
             driver.quit();
         }
         driver.quit();
