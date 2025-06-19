@@ -202,8 +202,7 @@ public class Main {
             Map<String, Integer> monthMap = getMonthMap();
             while (true) {
                 String actMonth = driver.findElement(By.cssSelector(".ui-datepicker-month")).getText();
-                if (actMonth.equalsIgnoreCase(month))
-                    break;
+                if (actMonth.equalsIgnoreCase(month)) break;
                 driver.findElement(
                                 By.cssSelector(monthMap.get(actMonth) < monthMap.get(month) ? ".ui-icon.ui-icon-circle-triangle-e"
                                         : ".ui-icon.ui-icon-circle-triangle-w"))
@@ -250,7 +249,7 @@ public class Main {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("document.body.style.zoom='75%'");
             Thread.sleep(5000);
-            driver.findElement(By.xpath("//div[@class='nsm7Bb-HzV7m-LgbsSe-MJoBVe']")).click();
+            driver.findElement(By.xpath("//span[@class='commonModal__close']")).click();
             Thread.sleep(5000);
 
 
@@ -321,13 +320,15 @@ public class Main {
         // handlingAlerts(driver); --TO TEST HANDLING ALERTS
         // handlingDates(driver, "24", "October", "2025");
         // dragAndDropping(driver);
-        // efficientCalendar(driver, 2026, "June", "12");
+        efficientCalendar(driver, 2026, "June", "12");
         try{
-
-            handlingDates(driver, "15", "June", "2025");
-        //firstProject(driver);
+            efficientCalendar(driver, 2026, "June", "12");
+            //handlingDates(driver, "15", "June", "2025");
+        //iframeTesting(driver);
         } catch (ElementNotInteractableException e) {
             driver.quit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         driver.quit();
 
