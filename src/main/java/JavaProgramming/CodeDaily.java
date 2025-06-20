@@ -1,16 +1,18 @@
 package JavaProgramming;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.testng.annotations.Test;
 import java.net.Inet4Address;
 import java.time.Duration;
 import java.util.List;
@@ -30,7 +32,10 @@ public class CodeDaily {
     }
     @Test
     public void ErrorCodesTxnPostings() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new", "--disable-gpu");
+        WebDriver driver = new ChromeDriver(options);
         driver.get("https://developers.pismo.io/pismo-docs/reference/corporate-v2-post-payments");
         driver.manage().window().maximize();
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -42,7 +47,7 @@ public class CodeDaily {
         List<WebElement> list1 = driver.findElements(By.xpath("//div[@tabindex='0']"));
         System.out.println(list1.size());
         while (list1.size() == 66) {
-            for (int i = 4; i < list1.size() - 4; i++) {
+            for (int i = 4; i < list1.size() - 5; i++) {
                 //driver.findElement(By.xpath("(//div[@data-testid='dropdown-container'])[13]"));
                 Actions ac = new Actions(driver);
                 WebDriverWait bc = new WebDriverWait(driver, Duration.ofSeconds(3));
@@ -68,8 +73,10 @@ public class CodeDaily {
 
     @Test
     public void ErrorCodesMultileg() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        //driver.get("https://developers.pismo.io/pismo-docs/reference/corporate-v2-post-payments");
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--headless=new", "--disable-gpu");
+        WebDriver driver = new EdgeDriver(options);
+
         driver.get("https://developers.pismo.io/pismo-docs/reference/corporate-v2-post-multileg-payments");
         driver.manage().window().maximize();
         JavascriptExecutor js = (JavascriptExecutor) driver;

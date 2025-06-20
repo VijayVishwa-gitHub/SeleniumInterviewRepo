@@ -1,0 +1,5 @@
+<suite name="MySeleniumSuite" parallel="methods" thread-count="5">
+    <test name="TEST1">
+        <classes><class name="JavaProgramming.CodeDaily"/></classes>
+    </test>
+</suite>
