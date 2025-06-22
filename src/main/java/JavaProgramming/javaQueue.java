@@ -81,7 +81,7 @@ public class javaQueue {
 
     }
 
-public static void Program3(){
+    public static void Program3(){
     /**
      * Input: arr = [9, 7, 5, 3], k = 6
      * Output: true
@@ -92,10 +92,19 @@ public static void Program3(){
      * Input: arr = [1, 2, 3, 4, 5], k = 2
      * Output: false → one element will be left unpaired
      */
-
+    int[] list1 = { 1, 2, 3, 4, 5, 6};
+    List<int[]> finals = new ArrayList<>();
+    int k = 7;
+    for(int i = 0; i<list1.length -1; i++) {  //0, 1, 2
+       for (int j = i+1; j < list1.length; j++) {  //1, 2
+            int l = list1[i] + list1[j];
+            if (l % k == 0) {
+                finals.add(new int[]{list1[i], list1[j]});}}}
+    finals.forEach(s ->System.out.println(Arrays.toString(s)));
     }
 
+
     public static void main(String[] args){
-        anagrams();
+        Program3();
     }
 }
