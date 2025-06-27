@@ -1,18 +1,15 @@
 package JavaProgramming;
 
-import org.testng.annotations.Test;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
-public class javaQueue {
+public class javaqueue {
 
     /**
      * 1. Dequeue is type of array that allow insertion and deletion from both the ends
      * 2. It is an alternate for Queue (First in First Out) and Stack (Last in First Out)
      * 3. If we want to an array to act both queue and stack we use this.
      */
-    @Test
+
     public void testingDequeue(){
         ArrayDeque<Integer> first = new ArrayDeque<>();
         first.offerFirst(1);     //add from first
@@ -59,14 +56,17 @@ public class javaQueue {
         }
 
     }
-    /**
-     * Create a map of String and List<String>
-     * Open a loop the array of MainList
-     * Inside the loop spilt the work into character Array [.toCharArray()]
-     * Then sort the array based on alphabets > Convert array back to word new String(ArrayName)
-     * Pass the word as key to Map and keep adding word in the List<String></String>
-     */
+
     public static void anagrams(){
+
+        /**
+         * Create a map of String and List<String>
+         * Open a loop the array of MainList
+         * Inside the loop spilt the work into character Array [.toCharArray()]
+         * Then sort the array based on alphabets > Convert array back to word new String(ArrayName)
+         * Pass the word as key to Map and keep adding word in the List<String></String>
+         */
+
         String[] list1 = {"listen", "silent", "enlist", "hello", "ohlle", "world"};
         Map<String, List<String>> map = new HashMap<>();
         for(String s : list1){
@@ -81,7 +81,8 @@ public class javaQueue {
 
     }
 
-    public static void Program3(){
+    public static void Array3(){
+
     /**
      * Input: arr = [9, 7, 5, 3], k = 6
      * Output: true
@@ -92,6 +93,7 @@ public class javaQueue {
      * Input: arr = [1, 2, 3, 4, 5], k = 2
      * Output: false → one element will be left unpaired
      */
+
     int[] list1 = { 1, 2, 3, 4, 5, 6};
     List<int[]> finals = new ArrayList<>();
     int k = 7;
@@ -103,8 +105,30 @@ public class javaQueue {
     finals.forEach(s ->System.out.println(Arrays.toString(s)));
     }
 
+   interface sums{
+        int result(int x, int y);
+    }
+
+   static void BufferAndBuilder(){
+        String a = "Manoj";
+        StringBuffer b = new StringBuffer("Manoj");
+        StringBuilder c = new StringBuilder("Manoj");
+
+        if(a.contentEquals(b) && a.contentEquals(c)){
+            System.out.println(STR."All string values are equal [\{a}, \{b}, \{c}]");
+        }
+        else{
+            System.out.println(STR."String values are not equal \{a} \{b} \{c}");
+        }
+   }
+
+
 
     public static void main(String[] args){
-        Program3();
+        BufferAndBuilder();
+//        sums dm = (a, b) ->a+b;
+//        System.out.println(dm.result(2,7));
+
+
     }
 }

@@ -12,7 +12,7 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
+//import org.testng.annotations.Test;
 import java.net.Inet4Address;
 import java.time.Duration;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 
 public class CodeDaily {
 
-    @Test
+
     public void wings() {
         String captcha = "5 - 4";
         String[] arr = captcha.split(" ");
@@ -30,7 +30,7 @@ public class CodeDaily {
             System.out.println(Integer.toString(y - z));
         }
     }
-    @Test
+
     public void ErrorCodesTxnPostings() throws InterruptedException {
 
         ChromeOptions options = new ChromeOptions();
@@ -71,7 +71,7 @@ public class CodeDaily {
         }
     }
 
-    @Test
+
     public void ErrorCodesMultileg() throws InterruptedException {
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--headless=new", "--disable-gpu");
