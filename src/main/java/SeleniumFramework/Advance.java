@@ -41,11 +41,12 @@ public class Advance {
 
     public static void javaRegex2() {
         String input = "Contact us at support@example.com or sales.team@domain.co.in or visit site. Also mail x_y.z@demo.io";
-        String ph = "63 69079587";
+        String ph = "6369 079587".replaceAll("\\s+", "");
         //String ph = String.valueOf(phoneNumber);
 
         //String regex = "^[\\w.]+@[A-Za-z0-9]{2,7}+.[a-z]{2}";
-        String regex = "^[\\d]{10}";
+
+        String regex = "^[\\d+]{10}";
         Pattern p = Pattern.compile(regex);
         //Matcher match = p.matcher(ph);
 

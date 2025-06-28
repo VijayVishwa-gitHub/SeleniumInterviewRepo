@@ -62,13 +62,14 @@ public class excelUtilities {
 
         while (matcher.find()) {
             String key = matcher.group(1);
-            //String replacement = data.getOrDefault(key, matcher.group(0));
-            String  replacement = matcher.group(1).equals(key) ? data.get(matcher.group(1)) : matcher.group(0);
+            String replacement = data.getOrDefault(key, matcher.group(0));
+            //String  replacement = matcher.group(1).equals(key) ? data.get(matcher.group(1)) : matcher.group(0);
             matcher.appendReplacement(result, replacement);
         }
 
         matcher.appendTail(result);
-        System.out.println(result);
+        logger.info(STR."Updated URL: \{result}");
+        logger.info("Created Actual URL");
 
     }
 
