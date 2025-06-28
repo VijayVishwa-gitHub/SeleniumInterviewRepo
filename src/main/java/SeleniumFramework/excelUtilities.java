@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.*;
@@ -25,75 +27,87 @@ public class excelUtilities {
 
     public static void getCellValue(Row row, String str) {
 
-        Map <String, Integer> headerMap = new HashMap<>();
-        for(Cell k : row){
-            headerMap.put(row.getCell(k.getColumnIndex()).toString(), k.getColumnIndex());
-            }
-        int z = headerMap.get(str);
-        if(sheet == null) {
-            logger.error("Sheet is null. Cannot retrieve cell value.");
-            return;
-        }
-        else{
-//            for (int i = 0; i < row.getLastCellNum(); i++) {
-//                if(row.getCell(i).toString().equalsIgnoreCase(str)) {
-                    int RowsCount = sheet.getLastRowNum();  //returns the last row number in the sheet
-                    for (int j = 0; j < sheet.getLastRowNum(); j++) {
-                        String result = sheet.getRow(j + 1).getCell(z).toString();  //getRow>getCell>toString()
-                        //String result = sheet.getRow(rowIndex + 1).getCell(cellIndex).toString();
-                        logger.info("Value of "+row.getCell(z).toString()+": " + result);
-
-                    }
-                }
-//            }
-//        }
-logger.info("Reading Completed");
-    }
-    /**
-     * This method retrieves the value of a specific cell in an Excel sheet based on the header name.
-     * It uses Apache POI to read the Excel file and logs the retrieved value.
-     *
-     * @param row The row from which to retrieve the cell value.
-     * @param str The header name to search for in the row.
-     * @param name The name of the person (not used in this method, but can be used for logging or other purposes).
-     */
-    public static void getCellValue2(Row row, String str, String name) {
-
         Map<String, Integer> headerMap = new HashMap<>();
-        int RowsCount = sheet.getLastRowNum()+1;
-        String cellValue = null;
-        boolean found = false;
-
         for (Cell k : row) {
             headerMap.put(row.getCell(k.getColumnIndex()).toString(), k.getColumnIndex());
         }
         int z = headerMap.get(str);
-
         if (sheet == null) {
             logger.error("Sheet is null. Cannot retrieve cell value.");
             return;
         } else {
-                    if (row.getCell(z).toString().equalsIgnoreCase(str)) {
-                    for(int j =0; j < RowsCount; j++) {
-                        try {
-                            cellValue = sheet.getRow(j + 1).getCell(0).toString();
-                        }catch (NullPointerException e) {
-                            logger.error("Null Pointer Exception at row: " + (j + 1) + ", column: " + z + ". Cell might be empty.");
-                            continue;
-                        }
-                            if(cellValue.equalsIgnoreCase(name)){
-                                logger.info(row.getCell(z).toString() + " of "+sheet.getRow(j+1).getCell(0).toString()+" is " +  sheet.getRow(j+1).getCell(z).toString());
-                                found = true;
-                                break;
-                        }
-                    }if(!found) {
-                        logger.info("Row for name " + name + " not found.");
-                    }
-                }
-            }
+//            for (int i = 0; i < row.getLastCellNum(); i++) {
+//                if(row.getCell(i).toString().equalsIgnoreCase(str)) {
+            int RowsCount = sheet.getLastRowNum();  //returns the last row number in the sheet
+            for (int j = 0; j < sheet.getLastRowNum(); j++) {
+                String result = sheet.getRow(j + 1).getCell(z).toString();  //getRow>getCell>toString()
+                //String result = sheet.getRow(rowIndex + 1).getCell(cellIndex).toString();
+                logger.info("Value of " + row.getCell(z).toString() + ": " + result);
 
+            }
+        }
+//            }
+//        }
         logger.info("Reading Completed");
     }
+
+    public static void URLManipulation(Map<String, String> data, String URL) {
+
+
+        String regex = "~([^/&]+)";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(URL);
+        StringBuffer result = new StringBuffer();
+
+        while (matcher.find()) {
+            String key = matcher.group(1);
+            //String replacement = data.getOrDefault(key, matcher.group(0));
+            String  replacement = matcher.group(1).equals(key) ? data.get(matcher.group(1)) : matcher.group(0);
+            matcher.appendReplacement(result, replacement);
+        }
+
+        matcher.appendTail(result);
+        System.out.println(result);
+
+    }
+
+
+//        String resource = "svijayvishwa";
+//        String ID = "1234";
+//        StringBuilder demo = new StringBuilder("https://automationexercise.com/~ID/~Resource");
+//
+//        String regex = "~([^/&]+)";
+//        Pattern pattern = Pattern.compile(regex);
+//        Matcher matcher = pattern.matcher(demo.toString());
+//
+//        StringBuffer result = new StringBuffer();  // Use this to build final string safely
+//
+//        while (matcher.find()) {
+//            String replacement;
+//            switch (matcher.group(1)) {
+//                case "ID":
+//                    replacement = ID;
+//                    break;
+//                case "Resource":
+//                    replacement = resource;
+//                    break;
+//                default:
+//                    replacement = matcher.group(0);  // fallback: no replacement
+//            }
+//
+//            matcher.appendReplacement(result, replacement);
+//        }
+//
+//        matcher.appendTail(result);
+//
+//        // Update the original StringBuilder
+//        demo.setLength(0);
+//        demo.append(result);
+//
+//        System.out.println(demo.toString());
+//    }
+
 
     /**
      * This class is used to read data from an Excel file.
@@ -108,8 +122,12 @@ logger.info("Reading Completed");
             sheet = workbook.getSheetAt(0);
             Row row = sheet.getRow(0);
 
+            HashMap<String, String> Urldata = new HashMap<>();
+            Urldata.put("ID", "1234");
+            Urldata.put("Resource", "svijayvishwa");
 
-            getCellValue2(row,"Domain", "Robin");
+            URLManipulation(Urldata, "https://automationexercise.com/~ID/~Resource");
+            // getCellValue2(row,"Domain", "Robin");
 
         } catch (IOException e) {
             System.out.println("File not found: " + e.getMessage());
