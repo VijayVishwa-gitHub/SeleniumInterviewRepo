@@ -44,6 +44,15 @@
             <artifactId>log4j-core</artifactId>
             <version>2.25.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.5.5</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
+
 
 
         <dependency>
@@ -65,23 +74,14 @@
             <artifactId>selenium-java</artifactId>
             <version>4.33.0</version>
         </dependency>
-
-        <!-- Apache POI (Excel handling) -->
-
-
-
-        <!-- Commons IO -->
-
-        <!-- Logging (Log4j) -->
-
-
-        <!-- TestNG -->
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.11.0</version>
+            <version>7.7.0</version>
             <scope>test</scope>
         </dependency>
+
 
         <!-- JUnit (Optional, if you're mixing with TestNG) -->
         <dependency>
@@ -94,6 +94,18 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.11.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.5.5</version>
             <scope>compile</scope>
         </dependency>
 
