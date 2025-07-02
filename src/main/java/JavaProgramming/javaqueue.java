@@ -122,10 +122,53 @@ public class javaqueue {
         }
    }
 
+    static void moveZeros(){
+        int[] actualArray = {0,12, 33, 7, 0, 14};
+        Arrays.sort(actualArray);
+        for(int i=0;i<actualArray.length-1;i++){
+            for(int j=0; j<actualArray.length-i-1;j++){
+                if(actualArray[j] < actualArray[j+1]){
+                    int tempt = actualArray[j];
+                    actualArray[j]=actualArray[j+1];
+                    actualArray[j+1] = tempt;
+                    }
+                }
+            }
+        for(int x : actualArray)
+        {System.out.println(x);
+        }
 
+    }
 
+    static void firstReapeating(){
+        int[] lis = {1,2, 8, 4, 6,5, 5,7,7, 2};
+        LinkedHashMap<Integer, Integer> mapping = new LinkedHashMap<>();
+        for(int i : lis) {
+            mapping.put(i, (mapping.getOrDefault(i,0)+1));
+        }
+        for(Map.Entry<Integer, Integer> entry : mapping.entrySet()){
+            if(entry.getValue()>1){
+                System.out.println(entry.getKey());
+                break;
+            }
+        }
+        int i ;
+        int count =0;
+        for(i=0; i<lis.length-1;i++){
+            for(int j=i+1; j<lis.length;j++){
+                if(lis[i]==lis[j]){
+                    count++;
+                    break;
+                }
+            }
+        }
+        if(count>1){
+            System.out.println(lis[i]);
+        }
+    }
     public static void main(String[] args){
-        BufferAndBuilder();
+        firstReapeating();
+        //BufferAndBuilder();
 //        sums dm = (a, b) ->a+b;
 //        System.out.println(dm.result(2,7));
 
