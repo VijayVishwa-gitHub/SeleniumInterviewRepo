@@ -9,12 +9,13 @@ import org.openqa.selenium.json.Json;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 public class SampleClass {
     @Test
-    public void firstTest() {
+    public void firstTest() throws IOException {
 
-        RestAssured.baseURI = "https://rahulshettyacademy.com";
+      RestAssured.baseURI = "https://rahulshettyacademy.com";
         File filePath = new File( "./src/main/resources/Payload/demo.json");
 
        // 1. Get Place_id
@@ -26,21 +27,18 @@ public class SampleClass {
         JsonPath js = new JsonPath(response);
         System.out.println("The place_id is: "+js.getString("place_id"));
         String p_id = js.getString("place_id");
+       testDataHandler.updateResponses("place_id", p_id);
 
         //2. Update Address
 
-       given().queryParam("key", "qaclick123").queryParam("place_id", p_id).header("Content-Type", "application/json")
-                .body("{\n" +
-                        "  \"place_id\": \""+p_id +"\",\n" +
-                        "  \"address\": \"Walter Veeraiya, KGF, Karnataka\",\n" +
-                        "  \"key\": \"qaclick123\"\n" +
-                        "}").when().put("maps/api/place/update/json")
+       given().log().all().queryParam("key", "qaclick123").queryParam("place_id", testDataHandler.getCellValue("place_id")).header("Content-Type", "application/json")
+                .body(testDataHandler.updatedPayload(1)).when().put("maps/api/place/update/json")
                 .then().assertThat().log().all().statusCode(200).body("msg", equalTo("Address successfully updated"));
+
 
        //3. Get the address
 
-
-        String finalAddress = given().log().all().queryParam("key", "qaclick123").queryParam("place_id", p_id).header("Content-Type", "application/json")
+        String finalAddress = given().log().all().queryParam("key", "qaclick123").queryParam("place_id", testDataHandler.getCellValue("place_id")).header("Content-Type", "application/json")
                 .when().get("/maps/api/place/get/json").then().log().all().assertThat().statusCode(200).log().all().body("address", equalTo("Walter Veeraiya, KGF, Karnataka")).extract().asString();
 
         JsonPath js2 = new JsonPath(finalAddress);

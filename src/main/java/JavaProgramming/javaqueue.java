@@ -105,11 +105,11 @@ public class javaqueue {
     finals.forEach(s ->System.out.println(Arrays.toString(s)));
     }
 
-   interface sums{
+    interface sums{
         int result(int x, int y);
     }
 
-   static void BufferAndBuilder(){
+    static void BufferAndBuilder(){
         String a = "Manoj";
         StringBuffer b = new StringBuffer("Manoj");
         StringBuilder c = new StringBuilder("Manoj");
@@ -140,7 +140,7 @@ public class javaqueue {
 
     }
 
-    static void firstReapeating(){
+    static void firstReapeating() {
         int[] lis = {1,2, 8, 4, 6,5, 5,7,7, 2};
         LinkedHashMap<Integer, Integer> mapping = new LinkedHashMap<>();
         for(int i : lis) {
@@ -166,12 +166,82 @@ public class javaqueue {
             System.out.println(lis[i]);
         }
     }
+
+    static int[] revWithoutDuplicates(int[] arr, int k){
+
+                Map<Integer, Integer> freq = new HashMap<>();
+                List<Integer> uniqueIndexes = new ArrayList<>();
+                List<Integer> uniqueValues = new ArrayList<>();
+
+                // Count frequency and collect unique elements
+                for (int i = 0; i < arr.length; i++) {
+                    int val = arr[i];
+                    freq.put(val, freq.getOrDefault(val, 0) + 1);
+                }
+                for(Map.Entry <Integer,Integer> entry : freq.entrySet()){
+                    System.out.println(entry.getKey() +" "+entry.getValue() );
+                }
+
+                // Collect indexes and values of unique elements
+                for (int i = 0; i < arr.length; i++) {
+                    if (freq.get(arr[i]) == 1) {
+                        uniqueIndexes.add(i);
+                        uniqueValues.add(arr[i]);
+                    }
+                }
+                System.out.println("*************************************************");
+                for(int s=0;s<5;s++){
+                    System.out.println(uniqueIndexes.get(s)+ " "+uniqueValues.get(s));
+                }
+                System.out.println("*************************************************");
+
+
+                int n = uniqueValues.size();
+                if (n == 0) return arr;
+
+                // Normalize rotation (handles k > n and negative k)
+
+
+
+                // Rotate and reinsert
+                for (int i = 0; i < n; i++) {
+                    int rotatedIndex = (i + k) % n;
+                    arr[uniqueIndexes.get(i)] = uniqueValues.get(rotatedIndex);
+                }
+
+                return arr;
+            }
+
+
+    static void reverseArray(int[] arr, int start, int end) {
+            while (start < end) {
+
+                int temp = arr[start];
+                arr[start] = arr[end];
+                arr[end] = temp;
+                start++;
+                end--;
+            }
+
+        }
+
     public static void main(String[] args){
-        firstReapeating();
-        //BufferAndBuilder();
-//        sums dm = (a, b) ->a+b;
-//        System.out.println(dm.result(2,7));
+        int k =3;
+        int[] arr = {11, 12, 13, 16, 15, 16, 17};
+        System.out.println(Arrays.toString(revWithoutDuplicates(arr, k)));
+
+
+//            int n = arr.length;
+//            k = ((k % n) + n) % n;    // 1%5 = 1 and -1%5=4
+//            reverseArray(arr,0, k-1);
+//            reverseArray(arr, k, arr.length-1);
+//            reverseArray(arr, 0, arr.length-1);
+//            for(int j : arr){
+//                System.out.println(j);
+//            }
+
+        }
 
 
     }
-}
+
