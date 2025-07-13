@@ -17,6 +17,8 @@ import java.util.regex.Pattern;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.*;
 
+import static org.openxmlformats.schemas.spreadsheetml.x2006.main.STCellType.STR;
+
 public class excelUtilities {
     static Sheet sheet;
     static Workbook workbook;
@@ -68,7 +70,7 @@ public class excelUtilities {
         }
 
         matcher.appendTail(result);
-        logger.info(STR."Updated URL: \{result}");
+        logger.info("Updated URL: "+result);
         logger.info("Created Actual URL");
 
     }

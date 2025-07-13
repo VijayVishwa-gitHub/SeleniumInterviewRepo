@@ -24,7 +24,7 @@ public class testDataHandler {
     static Workbook workbook;
     static Cell cell;
     static Row row;
-    static String filepath = "C:/Users/VijayBala/IdeaProject/src/main/java/DataSheets/Testsheet.xlsx";
+    static String filepath = "./src/main/java/DataSheets/Testsheet.xlsx";
     static FileInputStream fis;
     static FileOutputStream fos;
 

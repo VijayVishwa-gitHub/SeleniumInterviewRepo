@@ -114,12 +114,12 @@ public class javaqueue {
         StringBuffer b = new StringBuffer("Manoj");
         StringBuilder c = new StringBuilder("Manoj");
 
-        if(a.contentEquals(b) && a.contentEquals(c)){
-            System.out.println(STR."All string values are equal [\{a}, \{b}, \{c}]");
-        }
-        else{
-            System.out.println(STR."String values are not equal \{a} \{b} \{c}");
-        }
+//        if(a.contentEquals(b) && a.contentEquals(c)){
+//            System.out.println(STR."All string values are equal [\{a}, \{b}, \{c}]");
+//        }
+//        else{
+//            System.out.println(STR."String values are not equal \{a} \{b} \{c}");
+//        }
    }
 
     static void moveZeros(){
