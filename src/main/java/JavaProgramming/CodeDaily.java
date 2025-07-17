@@ -1,9 +1,6 @@
 package JavaProgramming;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -11,8 +8,10 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,7 +19,7 @@ import java.util.NoSuchElementException;
 
 public class CodeDaily {
 
- 
+
     public void wings() {
         String captcha = "5 - 4";
         String[] arr = captcha.split(" ");
@@ -30,12 +29,13 @@ public class CodeDaily {
             System.out.println(Integer.toString(y - z));
         }
     }
+
     @Test
     public void ErrorCodesTxnPostings() throws InterruptedException {
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new", "--disable-gpu");
-        WebDriver driver = new ChromeDriver(options);
+        //ChromeOptions options = new ChromeOptions();
+        //options.addArguments("--headless=new", "--disable-gpu");
+        WebDriver driver = new ChromeDriver();
         driver.get("https://developers.pismo.io/pismo-docs/reference/corporate-v2-post-payments");
         driver.manage().window().maximize();
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -125,7 +125,36 @@ public class CodeDaily {
         driver.quit();
     }
 
+    @Test
+    public void handlingDropdown() {
+
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--headless=new", "--disable-gpu");
+        WebDriver driver = new EdgeDriver(options);
+        driver.get("https://www.amazon.in/");
+        try {
+            WebElement dropdown = driver.findElement(By.xpath("//*[@id='searchDropdownBox']"));
+            dropdown.click();
+            List<WebElement> drops = driver.findElements(By.xpath("//*[@id='searchDropdownBox']//option"));
+            System.out.println(drops.size());
+            Select sc = new Select(dropdown);
+            sc.selectByIndex(8);
+            System.out.println(driver.findElement(By.xpath("//*[@id='nav-search-label-id']")).getText());
+            Thread.sleep(2000);
+            dropdown.click();
+            sc.selectByVisibleText("Amazon Fashion");
+            System.out.println(driver.findElement(By.xpath("//*[@id='nav-search-label-id']")).getText());
+        } catch (NoSuchElementException e) {
+            System.out.println("Wrong element");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            driver.quit();
+        }
+
     }
+
+}
 
 
 

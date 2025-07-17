@@ -224,13 +224,33 @@ public class javaqueue {
             }
 
         }
+    
+     static void multipyArray(){
+        int[] a = { 1, 2, 3, 4};
+        int[] b = new int[a.length];
+
+        
+        for(int i=0;i<a.length;i++){
+            int product = 1;
+            for(int j = 0; j<a.length;j++) {
+                if(i!=j) {
+                    product = product * a[j];
+                }
+            }
+            b[i] = product;
+        }
+        for(int k : b){
+
+            System.out.print(k+" ");
+        }
+     }
+        
+
 
     public static void main(String[] args){
-        int k =3;
-        int[] arr = {11, 12, 13, 16, 15, 16, 17};
-        System.out.println(Arrays.toString(revWithoutDuplicates(arr, k)));
-
-
+//        int k =3;
+//        int[] arr = {11, 12, 13, 16, 15, 16, 17};
+//        System.out.println(Arrays.toString(revWithoutDuplicates(arr, k)));
 //            int n = arr.length;
 //            k = ((k % n) + n) % n;    // 1%5 = 1 and -1%5=4
 //            reverseArray(arr,0, k-1);
@@ -239,6 +259,7 @@ public class javaqueue {
 //            for(int j : arr){
 //                System.out.println(j);
 //            }
+        multipyArray();
 
         }
 
