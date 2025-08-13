@@ -22,6 +22,6 @@ public class ParallelTest {
     public void tearDown() {
         DriverManager.getDriver().quit();  //once again getting and quitting the browser
         DriverManager.unload();
-    }
+    }//chnage
 }
 
