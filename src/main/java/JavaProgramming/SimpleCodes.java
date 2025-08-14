@@ -4,7 +4,9 @@ import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SimpleCodes {
 
@@ -61,6 +63,40 @@ public class SimpleCodes {
 
         d.forEach(System.out::println);
 
+
+    }
+
+    @Test
+    public void longestSequence(){
+        int[] input = {100, 1, 200, 3, 4, 100, 5};
+        HashSet<Integer> output = new HashSet<>();
+        for(int x : input){
+            output.add(x);
+        }
+        List<Integer> bestSequence = new ArrayList<>();
+        int bestLength = 0;
+
+        for(int y : output){
+            if(!output.contains(y-1)){
+
+                List<Integer> currentSequence = new ArrayList<>();
+                int currentNumber = y;
+
+                while(output.contains(currentNumber)){
+                    currentSequence.add(currentNumber);
+                    currentNumber++;
+                }
+
+                if(currentSequence.size()>bestLength){
+                    bestLength = currentSequence.size();
+                    bestSequence = currentSequence;
+                }
+            }
+        }
+        for(int z : bestSequence) {
+            System.out.println(z);
+
+        }
 
     }
 }
