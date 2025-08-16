@@ -3,10 +3,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SimpleCodes {
 
@@ -98,6 +95,29 @@ public class SimpleCodes {
 
         }
 
+    }
+
+    @Test
+    public void findMostRepeated(){
+
+        //String and Hashmap --> put and get mtd, map.getOrDefault(ch,0)+1) 2) entry set for looping 3 ) collections.max func
+        String input = "y name is Vjaat";
+
+        String input2 = input.toLowerCase().replaceAll(" ", "");
+        System.out.println(input2);
+        HashMap<Character, Integer> newInput = new HashMap<>();
+        for(int i=0; i<input2.length();i++){
+            newInput.put(input2.charAt(i), newInput.getOrDefault(input2.charAt(i),0) + 1);
+        }
+        int maximum = Collections.max(newInput.values());
+        int sum = 0;
+        for(Map.Entry<Character, Integer> entry : newInput.entrySet()){
+            sum =sum + entry.getValue();
+            if(entry.getValue()==maximum) {
+                System.out.println(entry.getKey());
+            }
+        }
+        System.out.println(sum);
     }
 }
 

@@ -13,7 +13,7 @@ public class ParallelTest {
 
     @Test
     public void testMethod() {
-        WebDriver driver = DriverManager.getDriver();  //getting happens after setting in the previous step
+        WebDriver driver = DriverManager.getDriver();  //getting happens after setting in the previous step  getting happens next
         driver.get("https://www.youtube.com/");
         System.out.println("Thread ID: " + Thread.currentThread().getId() + " | Browser: " + driver.getTitle());
     }

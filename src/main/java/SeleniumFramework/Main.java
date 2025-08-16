@@ -1,18 +1,23 @@
 package SeleniumFramework;
 
+import org.junit.BeforeClass;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
+import org.testng.annotations.Test;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 
+
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
+       public static WebDriver driver;
         public static WebDriver handlingDates(WebDriver driver, String day, String month, String year)
                 throws InterruptedException {
             try {
@@ -308,6 +313,7 @@ public class Main {
         System.out.println(driver.getTitle());
 
     }
+
 
 
     public static void main(String[] args) throws InterruptedException {

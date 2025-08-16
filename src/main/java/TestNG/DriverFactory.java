@@ -19,7 +19,7 @@ public class DriverFactory {
         }
 
         driverInstance.manage().window().maximize();
-        DriverManager.setDriver(driverInstance);  //setting happens after choosing browser
+        DriverManager.setDriver(driverInstance);  //setting happens after choosing browser  setting happens first
         return driverInstance;
     }
 }
