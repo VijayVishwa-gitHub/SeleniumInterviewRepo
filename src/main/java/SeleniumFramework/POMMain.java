@@ -1,7 +1,6 @@
 package SeleniumFramework;
 
-import TestNG.ListenerClass;
-import TestNG.dataProvider;
+import TestNG.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.ITestListener;
 import org.testng.annotations.*;
 
@@ -24,14 +24,15 @@ public class POMMain extends Base{
 
     @BeforeMethod
     public void initializebrowser(){;
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        DriverFactory.initDriver("chrome");
+        driver = DriverManager.getDriver();
+        //driver.manage().window().maximize();
         driver.get("https://practicetestautomation.com/practice-test-login/");
 
     }
 
 
-   @Test(dataProvider = "Logindata", dataProviderClass = TestNG.dataProvider.class)
+   @Test(dataProvider = "Logindata", dataProviderClass = TestNG.dataProvider.class, retryAnalyzer= RetryAnalyzer.class)
 
     public void loginPage(String username, String password) throws InterruptedException {
         try {
@@ -46,7 +47,7 @@ public class POMMain extends Base{
         }
         catch (Exception e) {
            System.out.println("Login Failed for: " + username + " | Reason: " + e.getMessage());
-           // you can log screenshot here as well
+            Assert.fail("Login Failed " +username +" " +password);
        }
     }
 
