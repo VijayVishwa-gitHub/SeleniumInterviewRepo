@@ -119,6 +119,20 @@ public class SimpleCodes {
         }
         System.out.println(sum);
     }
+
+    @Test
+    public static void reverse() {
+        int x = 1534236469;
+        long reverse =0;
+        while(x!=0){
+            int digit = x%10;
+            reverse = reverse*10 +digit;
+            x = x/10;
+
+        }
+       System.out.println(reverse);
+
+    }
 }
 
 
