@@ -1,24 +1,26 @@
 package SeleniumFramework;
 
-import org.junit.BeforeClass;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
-
+import java.util.NoSuchElementException;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
+public class Main extends Base {
 
        public static WebDriver driver;
-        public static WebDriver handlingDates(WebDriver driver, String day, String month, String year)
+       public static WebDriver handlingDates(WebDriver driver, String day, String month, String year)
                 throws InterruptedException {
             try {
                 driver.navigate().to("https://www.makemytrip.com/");
@@ -314,6 +316,39 @@ public class Main {
 
     }
 
+        @BeforeClass
+        public static void initializeDriver(){
+            driver = new EdgeDriver();
+            driver.manage().window().maximize();
+        }
+
+        @AfterClass
+        public static void closingbrowser(){
+        driver.quit();
+        }
+
+        @Test(dataProvider = "getData")
+        public static void practicExceptionhandling(String userName, String pwd) throws IOException {
+            driver.get("https://practicetestautomation.com/practice-test-login/");
+            driver.findElement(By.xpath("(//input[@id='username'])[1]")).sendKeys(userName);
+            driver.findElement(By.xpath("(//input[@id='password'])[1]")).sendKeys(pwd);
+            driver.findElement(By.cssSelector("#submit")).click();
+
+            try{
+                WebElement loginMessage = driver.findElement(By.cssSelector("p[class='has-text-align-center'] strong"));
+                webdriverWaits(driver, loginMessage);
+                String result = loginMessage.getText();
+                System.out.println("Login Successfully: " +result);
+
+            }
+            catch(Exception e){
+                System.out.println("Login Unsuccessful");
+
+            }
+
+    }
+
+
 
 
     public static void main(String[] args) throws InterruptedException {
@@ -326,11 +361,11 @@ public class Main {
         // handlingAlerts(driver); --TO TEST HANDLING ALERTS
         // handlingDates(driver, "24", "October", "2025");
         // dragAndDropping(driver);
-        efficientCalendar(driver, 2026, "June", "12");
+        //efficientCalendar(driver, 2026, "June", "12");
         try{
-            efficientCalendar(driver, 2026, "June", "12");
+            //efficientCalendar(driver, 2026, "June", "12");
             //handlingDates(driver, "15", "June", "2025");
-        //iframeTesting(driver);
+            //iframeTesting(driver);
         } catch (ElementNotInteractableException e) {
             driver.quit();
         } catch (Exception e) {
@@ -338,5 +373,12 @@ public class Main {
         }
         driver.quit();
 
+    }
+
+    @DataProvider
+    public static Object[][] getData() {
+        return new Object[][]{
+                {"Anil", "Kumble123"}, {"student", "Password123"}
+        };
     }
 }

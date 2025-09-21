@@ -23,14 +23,13 @@ public class ListenerClass implements ITestListener {
 
         @Override
         public void onTestFailure(ITestResult result) {
-            Base b = new Base();
-            String output;
+
             try {
-                output = b.takingScreenshot(driver);
+                Base.takingScreenshot(driver);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("Screenshot saved at " + output);
+            System.out.println("Screenshot saved at : ./target/generated-sources/failed.png " );
             System.out.println("Test Failed: " + result.getName());
 
         }

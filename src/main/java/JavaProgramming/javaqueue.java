@@ -244,8 +244,6 @@ public class javaqueue {
             System.out.print(k+" ");
         }
      }
-        
-
 
     public static void main(String[] args){
 //        int k =3;

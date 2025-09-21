@@ -60,8 +60,7 @@ class Main {
 
     }
 
-
-        public static void sortMapByValue() {
+    public static void sortMapByValue() {
             // Hardcoded input map
             Map<Integer, String> map = new HashMap<>();
             map.put(101, "Orange");
@@ -96,7 +95,6 @@ class Main {
         }
         System.out.println(first + last);
     }
-
 
     @Test
     public static void sorting(){

@@ -13,7 +13,7 @@ import java.util.List;
 public class dataProvider {
 
 
-    @DataProvider(name="Logindata", parallel = true)
+    @DataProvider(name="Logindata")
     public Object[][] getData(){
         return new Object[][]{
                 {"student", "Password123"}, {"Anil", "Kumble123"}, {"Sachin", "Tendulkar123"}
