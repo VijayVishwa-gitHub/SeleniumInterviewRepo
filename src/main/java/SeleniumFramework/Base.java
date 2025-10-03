@@ -21,6 +21,11 @@ public class Base {
     File destFile = new File(destination);
     Files.copy(src.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
+    TakesScreenshot ss = (TakesScreenshot) driver;
+    File src2 = ss.getScreenshotAs(OutputType.FILE);
+    Files.copy(src2.toPath(), new File("./target/generated-sources/failed.png").toPath());
+
+
     }
 
     public static void webdriverWaits(WebDriver driver, WebElement element){

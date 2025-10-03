@@ -1,9 +1,12 @@
 package JavaProgramming;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.util.*;
+
+import static java.util.Map.Entry.comparingByValue;
 
 public class SimpleCodes {
 
@@ -11,14 +14,17 @@ public class SimpleCodes {
 
     private static final Logger logger = LogManager.getLogger(SimpleCodes.class);
 
-    @Test(priority = 1)
+    @Test
+    @Parameters("word")
     public String StringReverse(String name) {
         String rev = "";
         for (int i = name.length() - 1; i >= 0; i--) {
             rev = rev + name.charAt(i);
         }
         logger.info(rev.toUpperCase());
+        System.out.println(rev);
         return rev;
+
     }
 
     @Test
@@ -30,7 +36,7 @@ public class SimpleCodes {
     }
 
     @Test
-    public void factorial() {
+    public void factorial(int i) {
         int factorialOf = 11;
         int x = factorialOf;
         while ((factorialOf - 1) != 1) {
@@ -41,11 +47,17 @@ public class SimpleCodes {
     }
 
     @Test
+    public static int factorial2(int x) {
+        if(x==0 || x==1) {
+            return 1;
+        }
+
+       return x * factorial2(x-1);}
+
+    @Test
     public void revStringArray() {
         String a = " my name is Vijay ";
         List<String> d = new ArrayList<>();
-
-
         for (String x : a.trim().split(" ")) {
             if (!x.equals("")) {
                 d.add(x);
@@ -128,10 +140,97 @@ public class SimpleCodes {
             int digit = x%10;
             reverse = reverse*10 +digit;
             x = x/10;
-
         }
        System.out.println(reverse);
+    }
 
+    @Test
+    public static void largestSubArray(){
+
+        int[] arr = {1,2,3,4,5,6};
+        int k =8;
+        int max = 0;
+        List<List<Integer>> finalList = new ArrayList<>();
+
+        for(int i=0; i<arr.length; i++){
+            List<Integer> grouping = new ArrayList<>();
+            int sum =arr[i];
+            grouping.add(arr[i]);
+            for(int j=1;j<=arr.length; j++){
+
+                if(sum<=k){
+                    sum = sum + arr[j];
+                    if(sum<=k){
+                        grouping.add(arr[j]);
+                    }
+                }
+                else{
+                    finalList.add(grouping);
+                    break;
+                }
+            }
+
+        }
+        List<Integer> largest = null;
+        for(List<Integer> y : finalList){
+            if(y.size()>max){
+                max = y.size();
+                largest = y;
+            }
+        }
+        System.out.println(largest);
+
+
+    }
+
+    @Test
+    public static void mostRepeating(){
+
+        String sentence = "Java is great, and Java is powerful! Python is also great. Java and Python are popular.";
+
+        String updatedSentence = sentence.replaceAll("[^a-zA-Z ]", "");
+
+        String[] splitedSentence =  new String[sentence.length()];
+
+        splitedSentence = updatedSentence.split(" ");
+
+        HashMap<String, Integer> sortMap = new HashMap<>();
+
+        for(String x : splitedSentence){;
+        sortMap.put(x, sortMap.getOrDefault(x ,0)+1);
+        }
+
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(sortMap.entrySet());
+
+        list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+        //list.sort(Map.Entry.comparingByValue());
+
+        Map<String, Integer> finalMap = new LinkedHashMap<>();
+
+        for(Map.Entry<String, Integer> entry : list){
+            finalMap.put(entry.getKey(), entry.getValue());
+        }
+
+
+        System.out.println(finalMap);
+
+    }
+
+    @Test
+    public static void vowels(){
+        String word = "welcome";
+        int count = 0;
+        for(int i=0; i<word.length();i++){
+            if(word.charAt(i) == 'a'||word.charAt(i)=='i'||word.charAt(i)=='e'||word.charAt(i)=='o'||word.charAt(i)=='u'){
+                System.out.println("Yes");
+                count++;
+            }
+        }
+        System.out.println(count);
+    }
+
+    public static void main(String[] args){
+        System.out.println("Factorial of number" + factorial2(5));
     }
 }
 

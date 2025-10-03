@@ -1,5 +1,20 @@
-<suite name="MySeleniumSuite" parallel="class" thread-count="5">
-    <test name="TEST1">
-        <classes><class name="JavaProgramming.CodeDaily"/></classes>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="TestNG.ListenerClasses"/>
+    </listeners>
+    <test name="Testing iTestListener">
+        <classes>
+            <class name="JavaProgramming.SimpleCodes">
+
+            <methods>
+                <parameter name="word" value="chrome"/>
+                <include name="StringReverse"/>
+                <include name="Palindrome"/>
+                <include name="longestSequence"/>
+            </methods>
+        </class>
+        </classes>
     </test>
 </suite>

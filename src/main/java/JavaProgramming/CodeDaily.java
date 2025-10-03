@@ -35,6 +35,8 @@ public class CodeDaily {
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new", "--disable-gpu");
+
+
         WebDriver driver = new ChromeDriver(options);
         driver.get("https://developers.pismo.io/pismo-docs/reference/corporate-v2-post-payments");
         driver.manage().window().maximize();
