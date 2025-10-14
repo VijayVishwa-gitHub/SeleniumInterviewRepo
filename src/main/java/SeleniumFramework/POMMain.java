@@ -12,12 +12,13 @@ import org.testng.Assert;
 import org.testng.ITestListener;
 import org.testng.annotations.*;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
-
-
 @Listeners(TestNG.ListenerClass.class)  //Listener should be kept at class level
+
 public class POMMain extends Base{
 
     PageObjectModel pageobject;
@@ -27,13 +28,19 @@ public class POMMain extends Base{
         DriverFactory.initDriver("chrome");
         driver = DriverManager.getDriver();
         //driver.manage().window().maximize();
-        driver.get("https://practicetestautomation.com/practice-test-login/");
-
+        //driver.get("https://practicetestautomation.com/practice-test-login/");
     }
 
+    @Test
+    public void urlTesting() throws IOException {
+
+        driver.get("https://www.amazon.in/");
+        List<WebElement> list1 = new ArrayList<>();
+        list1 = driver.findElements(By.xpath("//li[@class='nav_first']//following-sibling::a"));
+        testingURLs((ArrayList<WebElement>) list1);
+    }
 
    @Test(dataProvider = "Logindata", dataProviderClass = TestNG.dataProvider.class, retryAnalyzer= RetryAnalyzer.class)
-
     public void loginPage(String username, String password) throws InterruptedException {
         try {
             pageobject = new PageObjectModel(driver);

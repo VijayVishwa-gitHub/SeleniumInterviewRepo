@@ -14,6 +14,13 @@ public class SimpleCodes {
 
     private static final Logger logger = LogManager.getLogger(SimpleCodes.class);
 
+
+    @Test
+    public void removingSplChar(String inputString){
+        String updatedString = inputString.replaceAll("[^\\w]", "");
+        System.out.println(updatedString);
+    }
+
     @Test
     @Parameters("word")
     public String StringReverse(String name) {
@@ -230,6 +237,11 @@ public class SimpleCodes {
     }
 
     public static void main(String[] args){
+
+        SimpleCodes sc = new SimpleCodes();
+        sc.removingSplChar("A!B#C$D%E^");
+
+
         System.out.println("Factorial of number" + factorial2(5));
     }
 }
