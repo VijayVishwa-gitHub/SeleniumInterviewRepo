@@ -142,6 +142,7 @@ public class javaqueue {
 
     static void firstReapeating() {
         int[] lis = {1,2, 8, 4, 6,5, 5,7,7, 2};
+        //create a linked hashmap for order then fetch the object with key >1
         LinkedHashMap<Integer, Integer> mapping = new LinkedHashMap<>();
         for(int i : lis) {
             mapping.put(i, (mapping.getOrDefault(i,0)+1));

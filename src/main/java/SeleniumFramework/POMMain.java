@@ -27,8 +27,8 @@ public class POMMain extends Base{
     public void initializebrowser(){;
         DriverFactory.initDriver("chrome");
         driver = DriverManager.getDriver();
-        //driver.manage().window().maximize();
-        //driver.get("https://practicetestautomation.com/practice-test-login/");
+        driver.manage().window().maximize();
+        driver.get("https://practicetestautomation.com/practice-test-login/");
     }
 
     @Test
@@ -40,12 +40,13 @@ public class POMMain extends Base{
         testingURLs((ArrayList<WebElement>) list1);
     }
 
-   @Test(dataProvider = "Logindata", dataProviderClass = TestNG.dataProvider.class, retryAnalyzer= RetryAnalyzer.class)
+   @Test(dataProvider = "Logindata", dataProviderClass = TestNG.dataProvider.class)
     public void loginPage(String username, String password) throws InterruptedException {
         try {
             pageobject = new PageObjectModel(driver);
             pageobject.LoginPage(username, password);
-            //pageobject.LoginPage("student", "password123");
+
+
             Thread.sleep(2000);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             WebElement result = driver.findElement(By.xpath("//h1[@class='post-title']"));

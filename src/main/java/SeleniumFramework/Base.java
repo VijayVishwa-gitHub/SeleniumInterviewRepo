@@ -21,18 +21,18 @@ public class Base {
 
 
     public static void takingScreenshot(WebDriver driver) throws IOException {
-    File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-    String destination = "./target/generated-sources/failed.png";
-    File destFile = new File(destination);
-    Files.copy(src.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        String destination = "./target/generated-sources/failed.png";
+        File destFile = new File(destination);
+        Files.copy(src.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-    TakesScreenshot ss = (TakesScreenshot) driver;
-    File src2 = ss.getScreenshotAs(OutputType.FILE);
-    Files.copy(src2.toPath(), new File("./target/generated-sources/failed.png").toPath());
+        TakesScreenshot ss = (TakesScreenshot) driver;
+        File src2 = ss.getScreenshotAs(OutputType.FILE);
+        Files.copy(src2.toPath(), new File("./target/generated-sources/failed.png").toPath());
 
     }
 
-    public static void webdriverWaits(WebDriver driver, WebElement element){
+    public static void webdriverWaits(WebDriver driver, WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
@@ -42,22 +42,32 @@ public class Base {
         System.out.println(listOfURLs.size());
 
         for (WebElement x : listOfURLs) {
-
             String url = x.getAttribute("href");
             Assert.assertNotNull(url);
-            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
 
-            int responseCode = connection.getResponseCode();
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) new URL(url).openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
 
-            if(responseCode != 200){
+                int responseCode = connection.getResponseCode();
+
+                if (responseCode != 200) {
+                    System.out.println(url);
+                }
+
+                System.out.println(responseCode);
+            } catch (Exception e) {
                 System.out.println(url);
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
-
-            System.out.println(responseCode);
         }
-    }
 
+    }
 }
 

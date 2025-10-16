@@ -14,6 +14,7 @@ public class ListenerClass implements ITestListener {
         @Override
         public void onTestStart(ITestResult result) {
             System.out.println("Test Started: " + result.getName());
+            System.out.println();
         }
 
         @Override

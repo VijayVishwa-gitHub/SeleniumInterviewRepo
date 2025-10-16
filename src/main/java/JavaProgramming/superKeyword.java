@@ -7,6 +7,7 @@ public class superKeyword {
             public void runs(){
                 System.out.println("The car runs");
             }
+
             public car(){
                 System.out.println("Inside parent class");
             }
