@@ -16,6 +16,7 @@ public class SampleClass {
 
     @Test
     public void firstTest() throws IOException {
+
         int count=testDataHandler.count;
         for (int i = 0; i < count; i++) {
         RestAssured.baseURI = "https://rahulshettyacademy.com";
@@ -50,5 +51,18 @@ public class SampleClass {
 
 
         }
+    }
+
+    @Test
+    public void testingPOJOClass(){
+        Pojo reqpay = new Pojo("Vijay", 02, "Hey there!");
+        
+        RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
+        String response2 = given().body(reqpay).header("content-type", "application/json").when().post("/posts").then().assertThat().statusCode(201).extract().response().toString();
+
+        JsonPath js = new JsonPath(response2);
+        System.out.println(response2
+        );
+
     }
 }

@@ -13,6 +13,8 @@ public class StepDef1 {
     public void user_clicks_on_the_login_link() {
         System.out.println("Clicked on Login Button");
     }
+
+
     @When("user enters valid username and password")
     public void user_enters_valid_username_and_password(DataTable datatable) {
         List<Map<String, String>> loginCredentials = datatable.asMaps(String.class, String.class);

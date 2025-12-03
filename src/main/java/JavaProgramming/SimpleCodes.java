@@ -1,6 +1,7 @@
 package JavaProgramming;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.experimental.theories.ParametersSuppliedBy;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -14,6 +15,89 @@ public class SimpleCodes {
 
     private static final Logger logger = LogManager.getLogger(SimpleCodes.class);
 
+    @Test
+    public static void removingDuplicates(){
+        String input = "Programming";
+        LinkedHashSet<Character> remDuplicates = new LinkedHashSet<>();
+
+        for(char c : input.toCharArray() ){
+            remDuplicates.add(c);
+        }
+        StringBuilder sb = new StringBuilder();
+
+        for(char d : remDuplicates){
+            sb.append(d);
+        }
+        System.out.print(sb);
+    }
+
+    @Test
+    public static void longestPalindrome() {
+        String s = "babad";
+
+            int start = 0, end = 0;
+
+            for (int i = 0; i < s.length(); i++) {
+                int len1 = expandAroundCenter(s, i, i);       // odd length
+                int len2 = expandAroundCenter(s, i, i + 1);   // even length
+                int len = Math.max(len1, len2);
+
+                if (len > end - start) {
+                    start = i - (len - 1) / 2;
+                    end = i + len / 2;
+                }
+            }
+
+            System.out.println(s.substring(start, end + 1));
+        }
+
+        private static int expandAroundCenter(String s, int left, int right) {
+            while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+                left--;
+                right++;
+            }
+            return right - left - 1;
+        }
+
+
+   @Test
+   public static void CTS1(){
+       Scanner sc = new Scanner(System.in);
+       String inputFromUser = sc.nextLine();
+
+       String input1 = inputFromUser.trim().replaceAll("\\s+", " ");
+       String[] Updated = input1.split(" ");
+
+
+       StringBuilder sb = new StringBuilder(Updated[0]);
+       sb.reverse();
+
+       String secondWord = Updated[1].trim().replaceAll("[Ee]", "a");
+
+       System.out.println(sb +" " +secondWord);
+   }
+
+   @Test
+   public static void CTS2(){
+
+       String s = "aabbbcaa";
+
+
+       StringBuilder sb = new StringBuilder();
+       int n = s.length();
+       int i = 0;
+       while (i < n) {
+           char c = s.charAt(i);
+           int j = i + 1;
+           while (j < n && s.charAt(j) == c) j++;
+           sb.append(c).append(j - i);
+           i = j;
+       }
+       //String sc = sb.toString();
+       System.out.println(sb);
+
+
+   }
 
     @Test
     public void removingSplChar(String inputString){
@@ -24,6 +108,7 @@ public class SimpleCodes {
     @Test
     @Parameters("word")
     public String StringReverse(String name) {
+
         String rev = "";
         for (int i = name.length() - 1; i >= 0; i--) {
             rev = rev + name.charAt(i);
@@ -44,6 +129,7 @@ public class SimpleCodes {
 
     @Test
     public void factorial(int i) {
+
         int factorialOf = 11;
         int x = factorialOf;
         while ((factorialOf - 1) != 1) {
@@ -52,7 +138,7 @@ public class SimpleCodes {
         }
         System.out.println(x);
     }
-
+    
     @Test
     public static int factorial2(int x) {
         if(x==0 || x==1) {
@@ -63,6 +149,7 @@ public class SimpleCodes {
 
     @Test
     public void revStringArray() {
+
         String a = " my name is Vijay ";
         List<String> d = new ArrayList<>();
         for (String x : a.trim().split(" ")) {
@@ -70,7 +157,6 @@ public class SimpleCodes {
                 d.add(x);
             }
         }
-
         for (int i = 0; i < d.size(); i++) {
             if (i % 2 != 0) {
                 d.set(i, new StringBuilder(d.get(i)).reverse().toString());
@@ -83,7 +169,8 @@ public class SimpleCodes {
     }
 
     @Test
-    public void longestSequence(){
+    public void longestSequence()   {
+
         int[] input = {100, 1, 200, 3, 4, 100, 5};
         HashSet<Integer> output = new HashSet<>();
         for(int x : input){
@@ -141,6 +228,7 @@ public class SimpleCodes {
 
     @Test
     public static void reverse() {
+          
         int x = 1534236469;
         long reverse =0;
         while(x!=0){
@@ -164,7 +252,6 @@ public class SimpleCodes {
             int sum =arr[i];
             grouping.add(arr[i]);
             for(int j=1;j<=arr.length; j++){
-
                 if(sum<=k){
                     sum = sum + arr[j];
                     if(sum<=k){
@@ -176,7 +263,6 @@ public class SimpleCodes {
                     break;
                 }
             }
-
         }
         List<Integer> largest = null;
         for(List<Integer> y : finalList){
@@ -186,8 +272,6 @@ public class SimpleCodes {
             }
         }
         System.out.println(largest);
-
-
     }
 
     @Test
@@ -203,7 +287,7 @@ public class SimpleCodes {
 
         HashMap<String, Integer> sortMap = new HashMap<>();
 
-        for(String x : splitedSentence){;
+        for(String x : splitedSentence){
         sortMap.put(x, sortMap.getOrDefault(x ,0)+1);
         }
 
@@ -225,10 +309,14 @@ public class SimpleCodes {
 
     @Test
     public static void vowels(){
-        String word = "welcome";
+        String word = "wElcome";
+        String vowel = "aeiouAEIOU";
         int count = 0;
         for(int i=0; i<word.length();i++){
-            if(word.charAt(i) == 'a'||word.charAt(i)=='i'||word.charAt(i)=='e'||word.charAt(i)=='o'||word.charAt(i)=='u'){
+           // if(word.charAt(i) == 'a'||word.charAt(i)=='i'||word.charAt(i)=='e'||word.charAt(i)=='o'||word.charAt(i)=='u'){
+
+            //System.out.println(vowel.indexOf("a"));
+             if(vowel.indexOf(word.charAt(i))!= -1){
                 System.out.println("Yes");
                 count++;
             }
@@ -236,13 +324,102 @@ public class SimpleCodes {
         System.out.println(count);
     }
 
+    @Test
+    public static void arrMethod(){
+        int[] arr = {1, 2, 3, 4, 5, 6, 7};
+        int lenArr = arr.length;
+        int[] arrSmall = new int[lenArr/2];
+        Integer[] arrBig = new Integer[lenArr / 2 + 1];
+        int smallCount=0;
+        Integer bigCount = 0;
+
+        for(int i =0; i<lenArr;i++){
+            if(i<lenArr/2){
+                arrSmall[smallCount] = arr[i];
+                smallCount++;
+            }
+            else {
+                arrBig[bigCount] = arr[i];
+                bigCount++;
+            }
+        }
+        Arrays.sort(arrBig, Collections.reverseOrder());
+
+        smallCount =0;
+        bigCount=0;
+
+        for(int m=0; m<lenArr;m++){
+                arr[m] = (m % 2 == 0) ? arrBig[smallCount++] : arrSmall[bigCount++];
+        }
+
+        for(int l : arr){
+            System.out.println(l);
+        }
+
+
+    }
+
+    @Test
+    public static void treeMap(){
+        TreeMap<String, Integer> sortingKeys = new TreeMap<String, Integer>();
+
+        sortingKeys.put("Vijay", 3);
+        sortingKeys.put("Robin", 2);
+        sortingKeys.put("Kathir",1);
+
+        for(Map.Entry<String, Integer> sorts : sortingKeys.entrySet()){
+            System.out.println(sorts.getKey() +" "+ sorts.getValue());
+        }
+
+
+    }
+
+    @Test
+    public static void secondLargest(int[] arr) {
+        for(int i=0; i<arr.length-1;i++) {
+            for (int k = i+1; k < arr.length; k++) {
+                if(arr[k]>arr[i]){
+                    arr[i] = arr[i] + arr[k];
+                    arr[k] = arr[i] - arr[k];
+                    arr[i] = arr[i] - arr[k];
+                }
+            }
+        }
+        System.out.println(arr[1]);
+
+    }
+
+    @Test
+    public static void anagram(){
+        String[] arr = {"eat", "tea", "ate", "ran", "nar", "anr"};
+        Map<String, List<String>> finalList = new HashMap<String, List<String>>();
+
+        for(String x : arr){
+
+            char[] current = x.toCharArray();
+            Arrays.sort(current);
+            String sortKey = new String(current);
+
+            finalList.computeIfAbsent(sortKey, k ->new ArrayList<>()).add(x);
+
+        }
+        List<List<String>> result = new ArrayList<>(finalList.values());
+        for (List<String> group : result) {
+            System.out.println(group);
+        }
+
+    }
+
     public static void main(String[] args){
 
-        SimpleCodes sc = new SimpleCodes();
-        sc.removingSplChar("A!B#C$D%E^");
+        //SimpleCodes sc = new SimpleCodes();
+        //System.out.println("Factorial of number" + factorial2(5));
+        //sc.removingSplChar("A!B#C$D%E^");
+        CTS2();
 
 
-        System.out.println("Factorial of number" + factorial2(5));
+
+
     }
 }
 

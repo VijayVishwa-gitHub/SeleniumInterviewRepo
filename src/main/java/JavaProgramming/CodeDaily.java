@@ -75,18 +75,19 @@ public class CodeDaily {
 
     @Test
     public void ErrorCodesMultileg() throws InterruptedException {
-        EdgeOptions options = new EdgeOptions();
-        options.addArguments("--headless=new", "--disable-gpu");
-        WebDriver driver = new EdgeDriver(options);
+        WebDriver driver = new ChromeDriver();
+        //options.addArguments("--headless=new", "--disable-gpu");
+        //WebDriver driver = new EdgeDriver(options);
 
-        driver.get("https://developers.pismo.io/pismo-docs/reference/corporate-v2-post-multileg-payments");
-        driver.manage().window().maximize();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.body.style.zoom='50%'");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        driver.navigate().to("https://developers.pismo.io/pismo-docs/reference/corporate-v3-post-multileg-payments");
+        //driver.manage().window().maximize();
+        driver.navigate().refresh();
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("document.body.style.zoom='50%'");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.findElement(By.xpath("//a[@class='wscrOk2']")).click();
-        driver.findElement(By.xpath("(//span[@class='APIResponse-menu-status'])[1]")).click();
-        driver.findElement(By.xpath("//i[@class='icon-chevron-down APIResponse-action-icon']")).click();
+        //driver.findElement(By.xpath("//*[@id=\"ReferencePlayground\"]/section[3]/section/header/div[2]/button/span[1]")).click();
+        driver.findElement(By.xpath("//div/button[@class='Button Button_xs APIResponse-action-button3OHrWUSymAt1 APIResponse-action-button3OHrWUSymAt1 Dropdown-toggle Button_minimum_ghost Button_minimum']")).click();
         List<WebElement> list1 = driver.findElements(By.xpath("//div[@tabindex='0']"));
         System.out.println(list1.size());
         for (int i = 3; i < list1.size() - 4; i++) {
