@@ -1,9 +1,7 @@
 package JavaProgramming;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import SeleniumFramework.Base;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -11,14 +9,19 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static SeleniumFramework.Main.driver;
+import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
+import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
-public class CodeDaily {
+
+public class CodeDaily extends Base {
 
  
     public void wings() {
@@ -164,7 +167,45 @@ public class CodeDaily {
                 driver.findElement(By.xpath("//div[@class='APIResponse-menu-status']")).click();
             }
         driver.quit();
-        }
+    }
+
+    @Test
+    public void sampleTest() throws InterruptedException {
+        
+            By popup1 = By.cssSelector(".tp-dt-header-icon:last-child");
+            By popup2 = By.cssSelector(".commonModal__close:first-child");
+            By headerIcons = By.xpath("//span/a/span[2]");
+            By fromCityInput = By.cssSelector("input[placeholder='From']");
+            By fromCityOptions = By.xpath("//p[@class='searchedResult font14 blackText appendBottom5']//span/span");
+            By airportCode = By.xpath("//span[@class='sr_iata font14 lightGreyText latoBold']");
+
+            try {
+                driver = new ChromeDriver();
+                settingUpDriver(driver, "https://www.makemytrip.com/");
+
+                elementToBeClickableWait(driver, popup1, 5, "elementToBeClickable").click();
+                elementToBeClickableWait(driver, popup2, 5, "elementToBeClickable").click();
+                driver.findElements(headerIcons).forEach(e->System.out.println(e.getText()));
+
+                Actions actions = new Actions(driver);
+                actions.moveByOffset(10, 10).click().perform();
+
+                driver.findElement(By.cssSelector("label[for='fromCity']")).click();
+                driver.findElement(fromCityInput).sendKeys("Che");
+
+                visibilityOfElementWait(driver, fromCityOptions, 5, "visibilityOfList");
+
+                for (WebElement element2 : driver.findElements(fromCityOptions)) {
+                    System.out.println(element2.getText() +" "+driver.findElement(airportCode).getText());}
+
+                driver.quit();
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+
+            }
+    }
 
     }
 

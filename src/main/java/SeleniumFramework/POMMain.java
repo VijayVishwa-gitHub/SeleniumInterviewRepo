@@ -37,7 +37,7 @@ public class POMMain extends Base{
         driver.get("https://www.amazon.in/");
         List<WebElement> list1 = new ArrayList<>();
         list1 = driver.findElements(By.xpath("//li[@class='nav_first']//following-sibling::a"));
-        testingURLs((ArrayList<WebElement>) list1);
+        testingURL((ArrayList<WebElement>) list1);
     }
 
    @Test(dataProvider = "Logindata", dataProviderClass = TestNG.dataProvider.class)

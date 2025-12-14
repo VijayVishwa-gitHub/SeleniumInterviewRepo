@@ -5,10 +5,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -78,6 +80,46 @@ public class Main extends Base {
             driver.findElement(By.cssSelector("input#fileInput")).sendKeys(fileLoc);
             Thread.sleep(2000);
             return driver;
+        }
+
+        @Test
+        public static void fileDownload(){
+           String fileLoc = "C:\\Users\\VijayBala\\Downloads";
+          driver = new ChromeDriver();
+           ChromeOptions options = new ChromeOptions();
+            Map<String, Object> prefs = new HashMap<>();
+            prefs.put("download.default_directory", fileLoc);
+            prefs.put("download.prompt_for_download", false);
+            prefs.put("profile.default_content_settings.popups", 0);
+            prefs.put("safebrowsing.enabled", true);
+
+            options.setExperimentalOption("prefs", prefs);
+
+            By downloadFile = By.xpath("//a[.='chromedriver_win32.zip']");
+
+            driver.manage().window().maximize();
+            driver.get("https://chromedriver.storage.googleapis.com/index.html?path=114.0.5735.16/");
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(ExpectedConditions.elementToBeClickable(downloadFile));
+
+
+                driver.findElement(downloadFile).click();
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+                String fileNameExpected = "chromedriver_win32.zip";
+                File folder = new File(fileLoc);
+                File[] fileLoop = folder.listFiles();
+                boolean isAvailable = false;
+
+                for (File files : fileLoop) {
+                    if (files.isFile()) {
+                        String fileName = files.getName();
+                        if (fileName.equals(fileNameExpected)) {
+                            System.out.println("File Is Present");
+                            break;
+                        }
+
+                    }
+                }
         }
 
         public static WebDriver handlingAlerts(WebDriver driver) throws InterruptedException {
@@ -320,13 +362,13 @@ public class Main extends Base {
 
     }
 
-        @BeforeClass
+        //@BeforeClass
         public static void initializeDriver(){
             driver = new EdgeDriver();
             driver.manage().window().maximize();
         }
 
-        @AfterClass
+       // @AfterClass
         public static void closingbrowser(){
         driver.quit();
         }
@@ -339,9 +381,9 @@ public class Main extends Base {
             driver.findElement(By.cssSelector("#submit")).click();
 
             try{
-                WebElement loginMessage = driver.findElement(By.cssSelector("p[class='has-text-align-center'] strong"));
-                webdriverWaits(driver, loginMessage);
-                String result = loginMessage.getText();
+                By loginMessage = By.cssSelector("p[class='has-text-align-center'] strong");
+                visibilityOfElementWait(driver, loginMessage, 10, "visibilityofElements");
+                String result = driver.findElement(loginMessage).getText();
                 System.out.println("Login Successfully: " +result);
 
             }

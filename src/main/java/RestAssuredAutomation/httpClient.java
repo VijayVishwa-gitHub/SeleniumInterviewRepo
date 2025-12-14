@@ -54,9 +54,7 @@ public class httpClient {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
 
-
-
-
+        httpClient.close();
     }
 
     public static void main(String[] args) throws Exception {

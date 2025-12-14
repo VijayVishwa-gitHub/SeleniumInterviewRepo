@@ -6,6 +6,7 @@ import io.restassured.path.json.JsonPath;
 import java.util.Stack;
 
 public class JSONHandler {
+
     public static boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
 

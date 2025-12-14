@@ -19,11 +19,11 @@ public class SimpleCodes {
     public static void removingDuplicates(){
         String input = "Programming";
         LinkedHashSet<Character> remDuplicates = new LinkedHashSet<>();
-
+        StringBuilder sb = new StringBuilder();
         for(char c : input.toCharArray() ){
             remDuplicates.add(c);
         }
-        StringBuilder sb = new StringBuilder();
+
 
         for(char d : remDuplicates){
             sb.append(d);
@@ -62,8 +62,10 @@ public class SimpleCodes {
 
    @Test
    public static void CTS1(){
-       Scanner sc = new Scanner(System.in);
-       String inputFromUser = sc.nextLine();
+//       Scanner sc = new Scanner(System.in);
+//       String inputFromUser = sc.nextLine();
+
+       String inputFromUser = "  Automation     enginEERing   ";
 
        String input1 = inputFromUser.trim().replaceAll("\\s+", " ");
        String[] Updated = input1.split(" ");
@@ -71,10 +73,10 @@ public class SimpleCodes {
 
        StringBuilder sb = new StringBuilder(Updated[0]);
        sb.reverse();
-
+       sb.append(" ");
        String secondWord = Updated[1].trim().replaceAll("[Ee]", "a");
 
-       System.out.println(sb +" " +secondWord);
+       System.out.println(sb.append(secondWord));
    }
 
    @Test
@@ -100,9 +102,21 @@ public class SimpleCodes {
    }
 
     @Test
+    @Parameters({"word"})
     public void removingSplChar(String inputString){
-        String updatedString = inputString.replaceAll("[^\\w]", "");
-        System.out.println(updatedString);
+        //String updatedString = inputString.replaceAll("[^\\w]", ""); //inside square bracket means match any character other than alphabets
+        //System.out.println(updatedString);
+
+        StringBuilder sb = new StringBuilder();
+        String output = inputString.replaceAll("[^A-Za-z0-9]", "");
+
+        for(char c : inputString.toCharArray()){
+            int ascii = (int) c;
+            if((ascii>64 && ascii<91) || (ascii>96 && ascii<123)|| (ascii >= 48 && ascii <= 57)){
+                sb.append(c);
+            }
+        }
+        System.out.println(sb +" "+ output);
     }
 
     @Test
@@ -128,10 +142,11 @@ public class SimpleCodes {
     }
 
     @Test
-    public void factorial(int i) {
+    public static void factorial(int i) {
 
-        int factorialOf = 11;
+        int factorialOf = i;
         int x = factorialOf;
+
         while ((factorialOf - 1) != 1) {
             x = x * (factorialOf - 1);
             factorialOf--;
@@ -172,6 +187,7 @@ public class SimpleCodes {
     public void longestSequence()   {
 
         int[] input = {100, 1, 200, 3, 4, 100, 5};
+
         HashSet<Integer> output = new HashSet<>();
         for(int x : input){
             output.add(x);
@@ -215,7 +231,7 @@ public class SimpleCodes {
         for(int i=0; i<input2.length();i++){
             newInput.put(input2.charAt(i), newInput.getOrDefault(input2.charAt(i),0) + 1);
         }
-        int maximum = Collections.max(newInput.values());
+        int maximum = Collections.max(newInput.values());  //int maximum = Collections.max(mapName.values());
         int sum = 0;
         for(Map.Entry<Character, Integer> entry : newInput.entrySet()){
             sum =sum + entry.getValue();
@@ -281,9 +297,9 @@ public class SimpleCodes {
 
         String updatedSentence = sentence.replaceAll("[^a-zA-Z ]", "");
 
-        String[] splitedSentence =  new String[sentence.length()];
+        // splitedSentence =  new String[sentence.length()];
 
-        splitedSentence = updatedSentence.split(" ");
+        String[] splitedSentence = updatedSentence.split(" ");
 
         HashMap<String, Integer> sortMap = new HashMap<>();
 
@@ -293,8 +309,8 @@ public class SimpleCodes {
 
         List<Map.Entry<String, Integer>> list = new ArrayList<>(sortMap.entrySet());
 
-        list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
-        //list.sort(Map.Entry.comparingByValue());
+        //list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+        list.sort(Map.Entry.comparingByValue());
 
         Map<String, Integer> finalMap = new LinkedHashMap<>();
 
@@ -322,7 +338,7 @@ public class SimpleCodes {
             }
         }
         System.out.println(count);
-    }
+    }//indexOf mtd returns -1 if char not found in the string
 
     @Test
     public static void arrMethod(){
@@ -331,7 +347,7 @@ public class SimpleCodes {
         int[] arrSmall = new int[lenArr/2];
         Integer[] arrBig = new Integer[lenArr / 2 + 1];
         int smallCount=0;
-        Integer bigCount = 0;
+        int bigCount = 0;
 
         for(int i =0; i<lenArr;i++){
             if(i<lenArr/2){
@@ -410,12 +426,39 @@ public class SimpleCodes {
 
     }
 
+    public static void countNumbers(int[] arr) {
+        List<Integer> numberCount = new ArrayList<>();
+        int count = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (!numberCount.contains(arr[i])) {
+                numberCount.add(arr[i]);
+                count = 0; // reset count for each new number
+
+                for (int j = i + 1; j < arr.length; j++) {
+                    if (arr[i] == arr[j]) {
+                        count++;
+                    }
+                }
+                numberCount.add(count + 1); // +1 to include the first occurrence
+            }
+        }
+
+        for (int k : numberCount) {
+            System.out.println(k);
+        }
+    }
+
+
     public static void main(String[] args){
 
         //SimpleCodes sc = new SimpleCodes();
         //System.out.println("Factorial of number" + factorial2(5));
         //sc.removingSplChar("A!B#C$D%E^");
-        CTS2();
+        //CTS2();
+        factorial(7);
+//        int[] arr = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 4, 5,5,5,5};
+//        countNumbers(arr);
 
 
 

@@ -3,10 +3,8 @@ package RestAssuredAutomation;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.*;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.path.json.JsonPath;
-import org.openqa.selenium.json.Json;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -17,10 +15,10 @@ public class SampleClass {
     @Test
     public void firstTest() throws IOException {
 
-        int count=testDataHandler.count;
+        int count = testDataHandler.count;
         for (int i = 0; i < count; i++) {
-        RestAssured.baseURI = "https://rahulshettyacademy.com";
-        File filePath = new File("./src/main/resources/Payload/demo.json");
+            RestAssured.baseURI = "https://rahulshettyacademy.com";
+            File filePath = new File("./src/main/resources/Payload/demo.json");
 
 
             // 1. Get Place_id
@@ -36,14 +34,14 @@ public class SampleClass {
 
             //2. Update Address
 
-            given().queryParam("key", "qaclick123").queryParam("place_id", testDataHandler.getCellValue("place_id",i)).header("Content-Type", "application/json")
+            given().queryParam("key", "qaclick123").queryParam("place_id", testDataHandler.getCellValue("place_id", i)).header("Content-Type", "application/json")
                     .body(testDataHandler.updatedPayload(i)).when().put("maps/api/place/update/json")
                     .then().assertThat().statusCode(200).body("msg", equalTo("Address successfully updated"));
 
 
             //3. Get the address
 
-            String finalAddress = given().queryParam("key", "qaclick123").queryParam("place_id", testDataHandler.getCellValue("place_id",i)).header("Content-Type", "application/json")
+            String finalAddress = given().queryParam("key", "qaclick123").queryParam("place_id", testDataHandler.getCellValue("place_id", i)).header("Content-Type", "application/json")
                     .when().get("/maps/api/place/get/json").then().log().all().assertThat().statusCode(200).extract().asString();
 
             JsonPath js2 = new JsonPath(finalAddress);
@@ -54,15 +52,50 @@ public class SampleClass {
     }
 
     @Test
-    public void testingPOJOClass(){
-        Pojo reqpay = new Pojo("Vijay", 02, "Hey there!");
-        
+    public void testingPOJOClass() {
+        Pojo reqpay = new Pojo();
+
         RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
         String response2 = given().body(reqpay).header("content-type", "application/json").when().post("/posts").then().assertThat().statusCode(201).extract().response().toString();
 
         JsonPath js = new JsonPath(response2);
-        System.out.println(response2
-        );
+        System.out.println(response2);
 
+    }
+
+    @Test
+    public void testPOJO() {
+        String json = "{\n" +
+                "        \"orderId\": \"ORD123\",\n" +
+                "            \"customer\": {\n" +
+                "        \"id\": \"C101\",\n" +
+                "                \"name\": \"Amit\"\n" +
+                "    },\n" +
+                "        \"items\": [\n" +
+                "        {\n" +
+                "            \"itemId\": \"I1\",\n" +
+                "                \"qty\": 2,\n" +
+                "                \"price\": 500\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"itemId\": \"I2\",\n" +
+                "                \"qty\": 1,\n" +
+                "                \"price\": 1200\n" +
+                "        }\n" +
+                "  ]}"
+;
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Pojo order = mapper.readValue(json, Pojo.class);
+
+            System.out.println("Order ID: " + order.getOrderID());
+            System.out.println("Customer Name: " + order.getCustomerDetails().getName());
+            order.getItems().forEach(item ->
+                    System.out.println(item.getItemID() + " - Qty: " + item.getQty() + " - Price: " + item.getPrice())
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

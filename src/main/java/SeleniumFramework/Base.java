@@ -4,7 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,42 +31,69 @@ public class Base {
 
     }
 
-    public static void webdriverWaits(WebDriver driver, WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOf(element));
+    public static void visibilityOfElementWait(WebDriver driver, By Selector, int time, String waitName) {
+
+        WebDriverWait wait;
+
+        if (waitName.equalsIgnoreCase("visibilityOfElements")) {
+            wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(Selector));
+        }
+        else if(waitName.equalsIgnoreCase("visibilityOfList")){
+            wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(Selector, 0));
+        }
     }
 
-    public static void testingURLs(ArrayList<WebElement> listOfURLs) throws IOException {
+    public WebElement elementToBeClickableWait (WebDriver driver, By locator, int time, String waitName){
 
-        System.out.println(listOfURLs.size());
+            WebDriverWait wait;
+            if (waitName.equalsIgnoreCase("elementToBeClickable")) {
+                wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+                return wait.until(ExpectedConditions.elementToBeClickable(locator));
+                
+            } return null;
+    }
 
-        for (WebElement x : listOfURLs) {
-            String url = x.getAttribute("href");
-            Assert.assertNotNull(url);
+    public static void testingURL (ArrayList< WebElement > listOfURLs){
 
-            HttpURLConnection connection = null;
-            try {
-                connection = (HttpURLConnection) new URL(url).openConnection();
-                connection.setRequestMethod("GET");
-                connection.connect();
+            System.out.println(listOfURLs.size());
 
-                int responseCode = connection.getResponseCode();
+            for (WebElement x : listOfURLs) {
+                String url = x.getAttribute("href");
+                Assert.assertNotNull(url);
 
-                if (responseCode != 200) {
+                HttpURLConnection connection = null;
+                try {
+                    connection = (HttpURLConnection) new URL(url).openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.connect();
+
+                    int responseCode = connection.getResponseCode();
+
+                    if (responseCode != 200) {
+                        System.out.println(url);
+                    }
+
+                    System.out.println(responseCode);
+                } catch (Exception e) {
                     System.out.println(url);
-                }
 
-                System.out.println(responseCode);
-            } catch (Exception e) {
-                System.out.println(url);
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
+                   e.printStackTrace();
+                } finally {
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
                 }
             }
-        }
 
     }
-}
+
+    public static void settingUpDriver (WebDriver driver, String url){
+            driver.manage().window().maximize();
+            driver.get(url);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("document.body.style.zoom='80%';");
+        }
+    }
 

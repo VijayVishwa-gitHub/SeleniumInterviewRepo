@@ -4,15 +4,13 @@
     <listeners>
         <listener class-name="TestNG.ListenerClasses"/>
     </listeners>
+    
     <test name="Testing iTestListener">
         <classes>
             <class name="JavaProgramming.SimpleCodes">
-
             <methods>
-                <parameter name="word" value="chrome"/>
-                <include name="StringReverse"/>
-                <include name="Palindrome"/>
-                <include name="longestSequence"/>
+                <parameter name="word" value="a@b#c$d%0*1^"/>
+                <include name="removingSplChar"/>
             </methods>
         </class>
         </classes>
