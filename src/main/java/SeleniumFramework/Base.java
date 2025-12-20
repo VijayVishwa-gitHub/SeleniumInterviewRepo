@@ -20,6 +20,7 @@ public class Base {
 
 
     public static void takingScreenshot(WebDriver driver) throws IOException {
+
         File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String destination = "./target/generated-sources/failed.png";
         File destFile = new File(destination);
@@ -74,7 +75,6 @@ public class Base {
                     if (responseCode != 200) {
                         System.out.println(url);
                     }
-
                     System.out.println(responseCode);
                 } catch (Exception e) {
                     System.out.println(url);

@@ -3,17 +3,29 @@ package RestAssuredAutomation;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.number.OrderingComparison.lessThan;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.path.json.JsonPath;
+import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class SampleClass {
 
     @Test
     public void firstTest() throws IOException {
+
+        RequestSpecification reqSpecification = new RequestSpecBuilder()
+                .addHeader("ContentType", "application/json")
+                .addQueryParam("key","qaclick123")
+                .setBaseUri("https://rahulshettyacademy.com")
+                .setBasePath("maps/api/place/add")
+                .build();
 
         int count = testDataHandler.count;
         for (int i = 0; i < count; i++) {
@@ -23,9 +35,9 @@ public class SampleClass {
 
             // 1. Get Place_id
 
-            String response = given().queryParam("key", "qaclick123").header("ContentType", "application/json")
-                    .body(filePath).when().post("maps/api/place/add/json")
-                    .then().assertThat().statusCode(200).body("scope", equalTo("APP")).extract().response().asString();
+            String response = given().spec(reqSpecification).body(filePath).when().post("/json")
+                    .then().assertThat().time(lessThan(2000L), TimeUnit.MILLISECONDS).statusCode(200).body("scope", equalTo("APP")).extract().response().asString();
+
 
             JsonPath js = new JsonPath(response);
             System.out.println("The place_id is: " + js.getString("place_id"));
@@ -35,7 +47,7 @@ public class SampleClass {
             //2. Update Address
 
             given().queryParam("key", "qaclick123").queryParam("place_id", testDataHandler.getCellValue("place_id", i)).header("Content-Type", "application/json")
-                    .body(testDataHandler.updatedPayload(i)).when().put("maps/api/place/update/json")
+                    .body(testDataHandler.updatedPayload(i)).when().put("/maps/api/place/update/json")
                     .then().assertThat().statusCode(200).body("msg", equalTo("Address successfully updated"));
 
 

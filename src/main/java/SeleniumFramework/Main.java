@@ -107,8 +107,8 @@ public class Main extends Base {
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                 String fileNameExpected = "chromedriver_win32.zip";
                 File folder = new File(fileLoc);
-                File[] fileLoop = folder.listFiles();
-                boolean isAvailable = false;
+                File[] fileLoop = folder.listFiles(); //File[] iteratingFile = file.listFile();
+
 
                 for (File files : fileLoop) {
                     if (files.isFile()) {
@@ -270,6 +270,7 @@ public class Main extends Base {
 
         private static Map<String, Integer> getMonthMap() {
             Map<String, Integer> monthMap = new HashMap<>();
+
             String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
                     "October", "November", "December" };
             for (int i = 0; i < months.length; i++) {

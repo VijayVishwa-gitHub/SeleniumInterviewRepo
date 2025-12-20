@@ -84,7 +84,6 @@ public class SimpleCodes {
 
        String s = "aabbbcaa";
 
-
        StringBuilder sb = new StringBuilder();
        int n = s.length();
        int i = 0;
@@ -112,7 +111,7 @@ public class SimpleCodes {
 
         for(char c : inputString.toCharArray()){
             int ascii = (int) c;
-            if((ascii>64 && ascii<91) || (ascii>96 && ascii<123)|| (ascii >= 48 && ascii <= 57)){
+            if((ascii>64 && ascii<91) || (ascii>94 && ascii<123)|| (ascii >= 48 && ascii <= 57)){
                 sb.append(c);
             }
         }
@@ -179,8 +178,6 @@ public class SimpleCodes {
         }
 
         d.forEach(System.out::println);
-
-
     }
 
     @Test
@@ -231,7 +228,7 @@ public class SimpleCodes {
         for(int i=0; i<input2.length();i++){
             newInput.put(input2.charAt(i), newInput.getOrDefault(input2.charAt(i),0) + 1);
         }
-        int maximum = Collections.max(newInput.values());  //int maximum = Collections.max(mapName.values());
+         int maximum = Collections.max(newInput.values());  //int maximum = Collections.max(mapName.values());
         int sum = 0;
         for(Map.Entry<Character, Integer> entry : newInput.entrySet()){
             sum =sum + entry.getValue();

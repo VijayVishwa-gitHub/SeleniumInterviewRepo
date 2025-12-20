@@ -11,6 +11,8 @@
             <methods>
                 <parameter name="word" value="a@b#c$d%0*1^"/>
                 <include name="removingSplChar"/>
+                <parameter name="word" value="TESTING"/>
+                <include name="StringReverse"/>
             </methods>
         </class>
         </classes>
