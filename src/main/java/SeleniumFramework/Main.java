@@ -124,6 +124,7 @@ public class Main extends Base {
 
         public static WebDriver handlingAlerts(WebDriver driver) throws InterruptedException {
             driver.get("https://testpages.herokuapp.com/styled/alerts/alert-test.html");
+
             driver.findElement(By.cssSelector("#alertexamples")).click();
             Thread.sleep(2000);
             driver.switchTo().alert().accept();

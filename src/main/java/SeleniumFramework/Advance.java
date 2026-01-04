@@ -40,6 +40,8 @@ public class Advance {
     }
 
     public static void javaRegex2() {
+
+        //pattern of character to DESCRIBE a set of string
         String input = "Contact us at support@example.com or sales.team@domain.co.in or visit site. Also mail x_y.z@demo.io";
         String ph = "6369 079587".replaceAll("\\s+", "");
         //String ph = String.valueOf(phoneNumber);

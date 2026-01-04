@@ -1,6 +1,7 @@
 package Cucumber.StepDefinitionPackage;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,6 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 public class StepDef1 {
+
+    @Before
+    public static void demoBefore(){
+        System.out.println("USING @BEFORE TAG IN STEP DEFINITION");
+    }
+
     @Given("user clicks on the login link")
     public void user_clicks_on_the_login_link() {
         System.out.println("Clicked on Login Button");
@@ -25,6 +32,13 @@ public class StepDef1 {
         }
 
     }
+
+    @When("user enters valid credentials {string} and {string}")
+    public void user_Enters_Credentials(String username, String password) {
+        System.out.println("Entered "+username+" and " +password);
+    }
+
+
     @Then("user logs into the application")
     public void user_logs_into_the_application() {
         System.out.println("Successfully logged in");

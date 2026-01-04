@@ -16,15 +16,27 @@ public class SimpleCodes {
     private static final Logger logger = LogManager.getLogger(SimpleCodes.class);
 
     @Test
+    public void testMethod() {
+        String name = "MaDam";
+        name = name.toLowerCase();
+        StringBuilder name2 = new StringBuilder(name.toLowerCase());
+        name2.reverse().toString();
+        if (name.equals(name2.toString())) {  //we cannot compare a stringBuilder vs stringBuffer vs String; we need make it string first and then compare
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
+    }
+
+    @Test
     public static void removingDuplicates(){
         String input = "Programming";
         LinkedHashSet<Character> remDuplicates = new LinkedHashSet<>();
         StringBuilder sb = new StringBuilder();
+
         for(char c : input.toCharArray() ){
             remDuplicates.add(c);
         }
-
-
         for(char d : remDuplicates){
             sb.append(d);
         }
@@ -111,7 +123,7 @@ public class SimpleCodes {
 
         for(char c : inputString.toCharArray()){
             int ascii = (int) c;
-            if((ascii>64 && ascii<91) || (ascii>94 && ascii<123)|| (ascii >= 48 && ascii <= 57)){
+            if((ascii>64 && ascii<91) || (ascii>96 && ascii<123)|| (ascii >= 48 && ascii <= 57)){
                 sb.append(c);
             }
         }
@@ -321,7 +333,7 @@ public class SimpleCodes {
     }
 
     @Test
-    public static void vowels(){
+    public static void vowels() {
         String word = "wElcome";
         String vowel = "aeiouAEIOU";
         int count = 0;
@@ -338,7 +350,7 @@ public class SimpleCodes {
     }//indexOf mtd returns -1 if char not found in the string
 
     @Test
-    public static void arrMethod(){
+    public static void arrMethod()  {
         int[] arr = {1, 2, 3, 4, 5, 6, 7};
         int lenArr = arr.length;
         int[] arrSmall = new int[lenArr/2];
@@ -368,8 +380,6 @@ public class SimpleCodes {
         for(int l : arr){
             System.out.println(l);
         }
-
-
     }
 
     @Test
@@ -461,7 +471,9 @@ public class SimpleCodes {
 
 
     }
-}
+
+    }
+
 
 
 

@@ -1,7 +1,6 @@
 package RestAssuredAutomation;
 
-import SeleniumFramework.excelUtilities;
-import groovy.lang.GString;
+
 import io.cucumber.core.internal.com.fasterxml.jackson.core.type.TypeReference;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -9,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.*;
 import java.net.URI;
 import java.time.Instant;
@@ -18,22 +16,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
-import org.testng.annotations.Test;
 
-import static org.apache.poi.ss.usermodel.IndexedColors.LIGHT_GREEN;
 
 public class testDataHandler {
     public static final Logger logger = LogManager.getLogger(testDataHandler.class);
@@ -80,14 +67,9 @@ public class testDataHandler {
     public static String getCellValue(String str, int i) throws IOException {
 
         int z = HeaderIndex(str);
-        String JSONPayload = null;
-
-
-            JSONPayload = sheet.getRow(i+1).getCell(z).toString();
-            logger.info("Payload Fetched");
-
-
-        return JSONPayload;
+        String cellValue = null;
+        cellValue = sheet.getRow(i+1).getCell(z).toString();
+        return cellValue;
     }
 
     public static String updatedPayload(Integer row) throws IOException {

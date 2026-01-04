@@ -3,18 +3,23 @@ package RestAssuredAutomation;
 
 import io.cucumber.core.internal.com.fasterxml.jackson.core.type.TypeReference;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.testng.annotations.Test;
 
+import javax.net.ssl.SSLContext;
 import java.io.File;
+import java.net.Proxy;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,16 +35,16 @@ public class httpClient {
 
     @Test
     public static void onlineTrigger(int count) throws Exception {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
 
         for (int i = 0; i < count; i++) {
-            CloseableHttpClient httpClient = HttpClients.createDefault();
+            logger.info("**************Running Testcase: "+testDataHandler.getCellValue("TestcaseID", i) +" *******************");
 
-//            File filePath = new File("./src/main/resources/Payload/demo.json");
+//            File filePath = new File("./src/main/resources/Payload/demo.json");                   //taking payload directly from .json file
 //            String jsonBody = new String(Files.readAllBytes(Paths.get(filePath.getPath())));
+              String jsonBody2 = testDataHandler.updatedPayload(i);                                    //here fetching the payload from datasheet
 
-            String jsonBody2= testDataHandler.updatedPayload(i);
 
-            //build the URI
             String link = "https://rahulshettyacademy.com";
             URIBuilder builder = new URIBuilder(link);
             builder.setPath("/maps/api/place/add/json");
@@ -47,8 +52,8 @@ public class httpClient {
             URI finalUri = builder.build();
 
             //create HttpPost request
-            HttpUriRequest request = new HttpPost(finalUri);
-            ((HttpPost) request).setEntity(new StringEntity(jsonBody2));
+            HttpPost request = new HttpPost(finalUri);
+            request.setEntity(new StringEntity(jsonBody2));
             request.setHeader("Content-Type", "application/json");
 
             // execute the request and measure time
@@ -57,7 +62,7 @@ public class httpClient {
             //execute the request
             logger.info("Going to Post the request");
             HttpResponse response = httpClient.execute(request);  //response object's metadata and does not contain json response body content
-            logger.info("Status Code: " +response.getStatusLine().getStatusCode());
+            logger.info("Status Code: " + response.getStatusLine().getStatusCode());
 
             long end = System.nanoTime();
             long responseTimeMs = (end - start) / 1_000_000;
@@ -68,13 +73,14 @@ public class httpClient {
             outputRes.put("response", responseMessage);
 
             testDataHandler.updateResponses("RESPONSEPAYLOAD", responseMessage, i);
-
             //validateAndSaveResponse(jsonBody, responseMessage, response, responseTimeMs, finalUri, request);
+
+        }
 
 
 
             httpClient.close();
-        }
+
     }
 
     public static void main(String[] args) throws Exception {

@@ -7,7 +7,8 @@ import org.testng.ITestResult;
 
 import java.io.IOException;
 
-import static SeleniumFramework.POMMain.driver;
+import static SeleniumFramework.Base.driver;
+
 
 public class ListenerClass implements ITestListener {
 

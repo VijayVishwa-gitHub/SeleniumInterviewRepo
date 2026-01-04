@@ -20,8 +20,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class PageObjectModel {
+    public WebDriver driver;
 
-    private WebDriver driver;
+    public PageObjectModel(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
 
     @FindBy(id = "username")
     private WebElement usernameField;
@@ -32,10 +37,7 @@ public class PageObjectModel {
     @FindBy(xpath = "//button[@id='submit']")
     private WebElement loginButton;
 
-    public PageObjectModel(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+
 
     public void setUsername(String username){
         usernameField.sendKeys(username);
